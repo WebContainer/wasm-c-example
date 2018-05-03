@@ -1,6 +1,6 @@
-# WASM Electron Toolkit
+# WASM Examples
 
-> Cross platform compiled desktop applications.
+
 
 ```
 $ROOT/
@@ -60,7 +60,12 @@ cd $ROOT
 git clone https://github.com/groundwater/wasm-c-example.git
 cd wasm-c-example
 make
+
+npm install
+npm start
 ```
+
+To iterate on the `main.c` code use `make && npm start`.
 
 # Notes
 
