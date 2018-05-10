@@ -1,5 +1,5 @@
-#define WASM_EXPORT __attribute__((visibility("default")))
-
+#define PLEASE_KEEP_THIS_METHOD __attribute__((visibility("default")))
+void print(const char *);
 
 #define AF_INET		2	/* Internet IP Protocol 	*/
 #define SOCK_STREAM	1		/* stream (connection) socket	*/
@@ -26,7 +26,6 @@ int accept(int, struct sockaddr *, socklen_t *);
 int bind(int socket, const struct sockaddr *address, socklen_t address_len);
 int listen(int, int);
 int open(char *);
-int printf(const char *, ...);
 int read(int fd, void *buf, int count);
 int send(int, const void *, int, int);
 int socket(int, int, int);

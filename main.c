@@ -1,25 +1,29 @@
 #include "mylib.h"
 
-void hello(char * ret);
+PLEASE_KEEP_THIS_METHOD
+void uppercase(char * str);
 
-WASM_EXPORT
+PLEASE_KEEP_THIS_METHOD
 int main() {
-    int fd = open("README.md");
+    int fd = open("HELLOWORLD");
 
-    char buf[1000];
-
-    char * hw;
-    hello(hw);
-
-    // Copy Hello into array
-    int i = 0;
-    while(hw[i++] != '\0') {
-        buf[i] = hw[i];
+    if (fd <= 0) {
+        return 1;
     }
 
-    int size = read(fd, buf, 1000);
+    char buf[200];
+
+    int size = read(fd, buf, 20);
+
+    if (size <= 0) {
+        return 2;
+    }
 
     buf[size] = '\0';
-    
-    printf(buf);
+
+    print(buf);
+
+    uppercase(buf);
+
+    print(buf);
 }

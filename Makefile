@@ -18,7 +18,9 @@ out.wat: out.wasm
 	$(WASM2WAT) out.wasm > out.wat
 out.wasm: main.o hello.o
 	# https://lld.llvm.org/WebAssembly.html
-	$(LLD) -flavor wasm --allow-undefined -o out.wasm main.o hello.o
+	# https://github.com/llvm-mirror/lld/blob/master/tools/lld/lld.cpp
+	# ../llvm/Default/bin/lld -flavor wasm --help
+	$(LLD) -flavor wasm --import-memory --allow-undefined -o out.wasm main.o hello.o
 
 # https://github.com/WebAssembly/binaryen/issues/1447#issuecomment-368959790
 # For posterity: -wasm is the default when manually invoking clang, 
