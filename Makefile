@@ -43,7 +43,7 @@ main.s: main.bc
 main.bc: main.c
 	$(CXX) -emit-llvm -O0 -g --target=wasm32 -S main.c -c -o main.bc
 clean:
-	rm -f *.s *.bc *.wasm *.wat
+	rm -f *.s *.bc *.wasm *.wat *.o
 
 hello.wasm: hello.wat
 	$(WAT2WASM) --debug-names hello.wat > hello.wasm
