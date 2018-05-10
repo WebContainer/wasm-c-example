@@ -1,6 +1,6 @@
 ROOT=..
 
-LLVM=$(ROOT)/llvm/Default/bin
+LLVM=$(ROOT)/llvm/out/bin
 WABT=$(ROOT)/wabt/bin
 BINARYEN=$(ROOT)/binaryen/out/bin
 

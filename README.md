@@ -35,18 +35,17 @@ cmake . && make
 From-scratch build LLVM, clang, lld
 
 ```
+cd $ROOT
 svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
 
 # checkout clang
-(cd llvm/tools
-svn co http://llvm.org/svn/llvm-project/cfe/trunk clang)
+(cd llvm/tools && svn co http://llvm.org/svn/llvm-project/cfe/trunk clang)
 
 # checkout lld
-(cd llvm/tools
-svn co http://llvm.org/svn/llvm-project/lld/trunk lld)
+(cd llvm/tools && svn co http://llvm.org/svn/llvm-project/lld/trunk lld)
 
 # generate project
-mkdir -p out; cd out
+mkdir -p out && cd out
 cmake -G Ninja -DLLVM_TARGETS_TO_BUILD= -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly ../llvm
 
 # build
@@ -60,12 +59,11 @@ cd $ROOT
 git clone https://github.com/groundwater/wasm-c-example.git
 cd wasm-c-example
 make
-
-npm install
-npm start
 ```
 
-To iterate on the `main.c` code use `make && npm start`.
+This produces `out.wasm` which is a compiled and linked wasm executable, _almost_ ready to load in your browser.
+The `.wasm` binary requires a _libc_ implementation to run.
+Check out the [WebContainers](https://github.com/groundwater/WebContainers/) example implementation.
 
 # Notes
 
