@@ -1,7 +1,9 @@
+#define WASM_EXPORT __attribute__((visibility("default")))
+
+
 #define AF_INET		2	/* Internet IP Protocol 	*/
 #define SOCK_STREAM	1		/* stream (connection) socket	*/
 #define INADDR_ANY	((unsigned long int) 0x00000000)
-
 #define socklen_t int
 
 struct sockaddr {
@@ -20,12 +22,14 @@ struct sockaddr_in {
     char             sin_zero[8];  // zero this if you want to
 };
 
-int socket(int, int, int);
-unsigned short htons(int);
+int accept(int, struct sockaddr *, socklen_t *);
 int bind(int socket, const struct sockaddr *address, socklen_t address_len);
 int listen(int, int);
-int accept(int, struct sockaddr *, socklen_t *);
-int read(int fd, void *buf, int count);
+int open(char *);
 int printf(const char *, ...);
+int read(int fd, void *buf, int count);
 int send(int, const void *, int, int);
+int socket(int, int, int);
 unsigned int strlen(const char *);
+unsigned short htons(int);
+void * malloc(unsigned int);

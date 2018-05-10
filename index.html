@@ -27,14 +27,13 @@ const importsObject = {
         },
         accept(/* int, struct sockaddr *, socklen_t * */) {
             console.log('accept')
-            return 0;
+            return 1;
         },
         read(/* int fd, void *buf, int count */) {
             console.log('read')
             return 0;
         },
-        printf(/* const char *, ... */) {
-            console.log('printf')
+        printf(a, b/* const char *, ... */) {
             return 0;
         },
         send(/* int, const void *, int, int */) {

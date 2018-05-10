@@ -2,4 +2,5 @@
 *.s
 *.wasm
 *.wat
+*.o
 node_modules

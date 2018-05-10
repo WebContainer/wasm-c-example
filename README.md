@@ -47,7 +47,7 @@ svn co http://llvm.org/svn/llvm-project/lld/trunk lld)
 
 # generate project
 mkdir -p out; cd out
-cmake -G ninja -DLLVM_TARGETS_TO_BUILD= -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly ../llvm
+cmake -G Ninja -DLLVM_TARGETS_TO_BUILD= -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly ../llvm
 
 # build
 ninja
