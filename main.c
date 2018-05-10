@@ -1,6 +1,5 @@
 #include "mylib.h"
 
-PLEASE_KEEP_THIS_METHOD
 void uppercase(char * str);
 
 PLEASE_KEEP_THIS_METHOD
@@ -13,7 +12,7 @@ int main() {
 
     char buf[200];
 
-    int size = read(fd, buf, 20);
+    int size = read(fd, buf, 200);
 
     if (size <= 0) {
         return 2;
@@ -26,4 +25,8 @@ int main() {
     uppercase(buf);
 
     print(buf);
+
+    close(fd);
+
+    return 0;
 }

@@ -26,6 +26,7 @@ int accept(int, struct sockaddr *, socklen_t *);
 int bind(int socket, const struct sockaddr *address, socklen_t address_len);
 int listen(int, int);
 int open(char *);
+int close(int);
 int read(int fd, void *buf, int count);
 int send(int, const void *, int, int);
 int socket(int, int, int);
