@@ -1,12 +1,19 @@
 #include "mylib.h"
 
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
 void uppercase(char * str);
 
 PLEASE_KEEP_THIS_METHOD
-int main() {
-    int fd = open("HELLOWORLD");
+int main(int argc, char ** argv) {
+    print(argv[1]);
 
-    if (fd <= 0) {
+    int fd = open(argv[1], O_RDONLY);
+
+    if (fd < 0) {
+        print("OPEN FAIL");
         return 1;
     }
 
@@ -14,7 +21,8 @@ int main() {
 
     int size = read(fd, buf, 200);
 
-    if (size <= 0) {
+    if (size < 0) {
+        print("READ FAIL");
         return 2;
     }
 

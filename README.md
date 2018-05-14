@@ -1,7 +1,5 @@
 # WASM Examples
 
-
-
 ```
 $ROOT/
     llvm/
@@ -44,12 +42,18 @@ svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
 # checkout lld
 (cd llvm/tools && svn co http://llvm.org/svn/llvm-project/lld/trunk lld)
 
+(cd llvm/projects
+svn co http://llvm.org/svn/llvm-project/libcxx/trunk libcxx
+svn co http://llvm.org/svn/llvm-project/libcxxabi/trunk libcxxabi)
+
+
 # generate project
 mkdir -p out && cd out
 cmake -G Ninja -DLLVM_TARGETS_TO_BUILD= -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly ../llvm
 
 # build
 ninja
+ninja cxx
 ```
 
 # WASM C Example
