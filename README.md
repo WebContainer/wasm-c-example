@@ -1,11 +1,16 @@
 # WASM Examples
 
+The final layout will look like this.
+
 ```
 $ROOT/
     llvm/
+        out/
     wabt/
-    binaryen/
+        bin/
     wasm-c-experiments/
+    musl-wasm/
+
 ```
 
 # Wabt
@@ -16,16 +21,6 @@ Convert between WASM binary and textual formats.
 cd $ROOT
 git clone https://github.com/WebAssembly/wabt.git
 make
-```
-
-# Binaryen
-
-Convert between `.s` assembly and WASM.
-
-```
-cd $ROOT
-git clone https://github.com/webassembly/binaryen.git
-cmake . && make
 ```
 
 # LLVM
@@ -53,7 +48,23 @@ cmake -G Ninja -DLLVM_TARGETS_TO_BUILD= -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=Web
 
 # build
 ninja
-ninja cxx
+```
+
+# MUSL-WASM
+
+```
+cd $ROOT
+git clone https://github.com/groundwater/musl-wasm
+mkdir -p out && cd out
+
+export AR=../llvm/out/llvm-ar
+export CC="../llvm/out/clang --target=wasm32-unknown-unknown-wasm"
+export RANLIB=../llvm/out/llvm-ranlib
+export CFLAGS="-O0 -fvisibility=default"
+
+../configure --disable-shared
+
+make lib/libc.a
 ```
 
 # WASM C Example
@@ -66,8 +77,10 @@ make
 ```
 
 This produces `out.wasm` which is a compiled and linked wasm executable, _almost_ ready to load in your browser.
-The `.wasm` binary requires a _libc_ implementation to run.
-Check out the [WebContainers](https://github.com/groundwater/WebContainers/) example implementation.
+The `.wasm` binary requires a runtime implementation to run.
+
+- The runtime must implement to symbols in [external-symbols](external-symbols).
+- Check out the [WebContainers](https://github.com/groundwater/WebContainers/) work-in-progress implementation.
 
 # Notes
 

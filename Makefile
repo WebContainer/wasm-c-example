@@ -1,21 +1,28 @@
 ROOT=..
 
+# LLVM Instance Configured for WASM
+# Instructions in README.md
 LLVM=$(ROOT)/llvm/out/bin
+# https://github.com/WebAssembly/wabt
 WABT=$(ROOT)/wabt/bin
-BINARYEN=$(ROOT)/binaryen/out/bin
+MUSL=$(ROOT)/musl-wasm
 
+# Use LLVM WASM toolchain
 CXX=$(LLVM)/clang
 LLD=$(LLVM)/wasm-ld 
+AR=$(LLVM)/llvm-ar
 
+# Print human-readable WASM by converting to WAT
 WASM2WAT=$(WABT)/wasm2wat
 
-LIBC_DIR		=../musl/out/lib
-LIBC_INCLUDE	=../musl/include
-ARCH_INCLUDE	=../musl/arch/wasm32
-ARCH_INCLUDE_GEN=../musl/out/obj/include
+# Linking against libc
+# https://github.com/groundwater/musl-wasm
+LIBC_DIR		=$(MUSL)/out/lib
+LIBC_INCLUDE	=$(MUSL)/include
+ARCH_INCLUDE	=$(MUSL)/arch/wasm32
+ARCH_INCLUDE_GEN=$(MUSL)/out/obj/include
 
 # README
-# https://github.com/WebAssembly/binaryen#cc-source--webassembly-llvm-backend--s2wasm--webassembly
 # https://webghc.github.io/2017/07/25/buildinglibcedited.html
 # https://gist.github.com/masuidrive/5231110#file-gistfile1-txt-L250
 CFLAGS=\
@@ -42,14 +49,18 @@ LLD_LIBS=\
 out.wat: out.wasm
 	$(WASM2WAT) out.wasm > out.wat
 
+SRC = $(wildcard *.c)
+OBJ = $(patsubst %.c, %.o, $(SRC))
+LIB = libhello.a
+
 # https://lld.llvm.org/WebAssembly.html
 # https://github.com/llvm-mirror/lld/blob/master/tools/lld/lld.cpp
-out.wasm: main.o libhello.a
+out.wasm: $(OBJ) $(LIB)
 	$(LLD) $(LLD_FLAGS) $(LLD_PATHS) $(LLD_LIBS) main.o -o out.wasm
 
 # Testing that we can make a static libary!
-libhello.a: hello.o
-	../llvm/out/bin/llvm-ar qc libhello.a hello.o
+lib%.a: %.o
+	$(AR) qc $@ $<
 
 # https://github.com/WebAssembly/binaryen/issues/1447#issuecomment-368959790
 # For posterity: -wasm is the default when manually invoking clang, 
@@ -59,10 +70,8 @@ libhello.a: hello.o
 # though it's neither entirely stable nor entirely supported by Emscripten at the moment, 
 # so it's not as recommended for use today, unless you're feeling experimental.
 
-main.o: main.c Makefile
-	$(CXX) $(CFLAGS) $(CXX_FLAGS) main.c -c -o main.o
-hello.o: hello.c Makefile
-	$(CXX) $(CFLAGS) $(CXX_FLAGS) hello.c -c -o hello.o
+%.o: %.c Makefile
+	$(CXX) $(CFLAGS) $(CXX_FLAGS) $< -c -o $@
 
 clean:
 	rm -f *.s *.bc *.wasm *.wat *.o *.a
@@ -71,6 +80,7 @@ clean:
 # We don't use that toolchain anymore.
 # We leave it here. Why not.
 
+# https://github.com/WebAssembly/binaryen#cc-source--webassembly-llvm-backend--s2wasm--webassembly
 # main.wasm: main.wat
 # 	$(WAT2WASM) --debug-names main.wat > main.wasm
 # main.wat: main.s
