@@ -6,11 +6,30 @@ The final layout will look like this.
 $ROOT/
     llvm/
         out/
+            bin/
+                clang
+                    # compiler
+                wasm-ld
+                    # linker
+                llvm-ar
+                    # archiver
     wabt/
         bin/
+            wasm2wat
+                # wasm to human-readable .wat format
     wasm-c-experiments/
+        out.wasm
+            # statically linked wasm binary
     musl-wasm/
-
+        out/
+            lib/libc.a
+                # libc static library
+            obj/include
+                # libc auto-generated headers
+        include/
+            # libc generic headers
+        arch/wasm32/
+            # libc architecture-specific headers
 ```
 
 # Wabt
