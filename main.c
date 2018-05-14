@@ -1,15 +1,14 @@
 #include "mylib.h"
 
+#include <stdio.h>
+#include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <string.h>
 
 void uppercase(char * str);
 
 PLEASE_KEEP_THIS_METHOD
 int main(int argc, char ** argv) {
-    print(argv[1]);
-
     int fd = open(argv[1], O_RDONLY);
 
     if (fd < 0) {
@@ -28,7 +27,7 @@ int main(int argc, char ** argv) {
 
     buf[size] = '\0';
 
-    print(buf);
+    printf("hi");
 
     uppercase(buf);
 

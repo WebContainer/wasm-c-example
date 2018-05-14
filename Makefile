@@ -24,7 +24,6 @@ CFLAGS=\
 	-Oz \
 	--target=-wasm32-unknown-unknown-wasm \
 	-Werror=implicit-function-declaration \
-	-fno-builtin \
 	-I $(ARCH_INCLUDE_GEN) \
 	-I $(ARCH_INCLUDE) \
 	-I $(LIBC_INCLUDE)
