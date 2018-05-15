@@ -28,7 +28,7 @@ ARCH_INCLUDE_GEN=$(MUSL)/out/obj/include
 CFLAGS=\
 	-nostdinc \
 	-nodefaultlibs \
-	-Oz \
+	-O0 \
 	--target=-wasm32-unknown-unknown-wasm \
 	-Werror=implicit-function-declaration \
 	-I $(ARCH_INCLUDE_GEN) \
