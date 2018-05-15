@@ -27,7 +27,7 @@ int main(int argc, char ** argv) {
 
     buf[size] = '\0';
 
-    printf("hi");
+    printf("hi\n");
 
     uppercase(buf);
 
