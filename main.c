@@ -19,9 +19,11 @@ int testOpenReadClose(char * arg) {
         return 1;
     }
 
-    char * buf = (char *) malloc(sizeof(char) * 200);
+    char buf[200];
 
     int size = read(fd, buf, 200);
+
+    printf("Got %d bytes\n", size);
 
     if (size < 0) {
         print("READ FAIL");
@@ -29,14 +31,6 @@ int testOpenReadClose(char * arg) {
     }
 
     buf[size] = '\0';
-
-    printf("hi %d\n", 12);
-    
-    printf("HELLO AGAIN %d %d\n", 12, 100);
-
-    uppercase(buf);
-
-    write(1, "HI\n", 3);
 
     printf("%s\n", buf);
 
